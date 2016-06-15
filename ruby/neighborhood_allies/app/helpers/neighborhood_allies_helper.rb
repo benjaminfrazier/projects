@@ -1,0 +1,2 @@
+module NeighborhoodAlliesHelper
+end
