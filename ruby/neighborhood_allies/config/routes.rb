@@ -1,13 +1,29 @@
 Rails.application.routes.draw do
-  get 'neighborhood_allies/index'
 
+  get 'seed_gen/index'
+
+post 'organizations/:id/showvectors/' => 'organizations#showvectors'
+post 'orgadmins/:id/showorgconnections/' => 'orgadmins#showorgconnections'
+post 'orgadmins/:id/addorgconnections/' => 'orgadmins#addorgconnections'
+
+# this line will need to be removed
+get 'organizations/:id/showvectors/' => 'organizations#showvectors'
+get 'orgadmins/:id/showorgconnections/' => 'orgadmins#showorgconnections'
+get 'orgadmins/:id/addorgconnections/' => 'orgadmins#addorgconnections'
+resources :organizations
+get 'organizations/:id/about' => 'organizations#about'
+
+resources :orgadmins
+
+  devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'}
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+resources :logos do
+  get "serve", :on => :member
+end
 
   # You can have the root of your site routed with "root"
-  resources :companies
-
-  root 'neighborhood_allies#index'
+  root 'organizations#index_landing'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -17,6 +33,7 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
+
 
   # Example resource route with options:
   #   resources :products do
